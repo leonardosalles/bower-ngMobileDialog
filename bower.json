@@ -1,0 +1,19 @@
+{
+  "name": "ngMobileDialog",
+  "version": "1.0.0",
+  "authors": [
+    "Leonardo Salles <leosallestm@gmail.com>"
+  ],
+  "description": "A responsive dialog projected as mobile-first, in mobile use fullscreen like iOS modals, and 768+ screens use modal like Bootstrap",
+  "main": "dialog.js",
+  "keywords": [
+    "mobile",
+    "dialog",
+    "ngDialog",
+    "ngMobileDialog",
+    "ngModal",
+    "ngMobileModal"
+  ],
+  "license": "MIT",
+  "homepage": "http://leonardosalles.github.io/ngMobileDialog"
+}

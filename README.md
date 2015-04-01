@@ -6,17 +6,17 @@ Install
     bower install ngMobileDialog --save
     
 Use
-
+```javascript
     angular.module("app", ["ngMobileDialog"]);
-
+```
 Markup
-
+```html
     <button ng-click="openDialog()">Open Dialog</button>
-
+```
 Javascript
 
 main-controller.js
-
+```javascript
     angular.module("app", []).controller("MainController", function ($scope, $dialog) {
 		$scope.openDialog = function() {
 			var resolverOne = function () {
@@ -38,9 +38,9 @@ main-controller.js
 			});
 		};
     });
-
+```
 dialog-controller.js
-
+```javascript
 	angular.module("app").controller("DialogController", function (resolveOne) {
 		$scope.parent = resolveOne;//MainController
 		
@@ -48,15 +48,15 @@ dialog-controller.js
 			$scope.resolve("This can be whatever from dialog like an object or string");
 		};
 	});
-
+```
 
 dialog.html
-
+```html
     <h1>this is a dialog from {{parent}}<!-- MainController will be show--></h1>
     <button ng-click="close()">Close Dialog</button>
     <strong>Without parameters can resolve and close directly</strong>
     <button ng-click="resolve()">Close Dialog without parameters</button>
-
+```
 Options
 
 | Name      | Type   | Example                                                | Required            | Description                                                              |

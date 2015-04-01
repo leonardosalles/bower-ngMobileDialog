@@ -15,5 +15,8 @@
     "ngMobileModal"
   ],
   "license": "MIT",
-  "homepage": "http://leonardosalles.github.io/ngMobileDialog"
+  "homepage": "http://leonardosalles.github.io/ngMobileDialog",
+  "dependencies": {
+    "angular": "~1.2.0"
+  }
 }

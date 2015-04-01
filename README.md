@@ -4,6 +4,10 @@ A responsive dialog projected as mobile-first, in mobile use fullscreen like iOS
 Install
 
     bower install ngMobileDialog --save
+    
+Use
+
+    angular.module("app", ["ngMobileDialog"]);
 
 Markup
 

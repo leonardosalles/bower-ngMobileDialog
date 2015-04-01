@@ -1,0 +1,79 @@
+.dialog {
+	position: fixed;
+	top: 0;
+	z-index: 11;
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	background-color: #fff;
+	-webkit-transition: -webkit-transform .35s,opacity 1ms .35s;
+	-moz-transition: -moz-transform .35s,opacity 1ms .35s;
+	transition: transform .35s,opacity 1ms .35s;
+	-webkit-transform: translate3d(0,100%,0);
+	-ms-transform: translate3d(0,100%,0);
+	transform: translate3d(0,100%,0);
+	left: 0;
+	overflow: scroll;
+
+
+	&.active {
+		height: 100%;
+		opacity: 1;
+		-webkit-transition: -webkit-transform .25s;
+		-moz-transition: -moz-transform .25s;
+		transition: transform .25s;
+		-webkit-transform: translate3d(0,0,0);
+		-ms-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
+	}
+}
+
+@media all and (min-width: 768px) {
+	.dialog {
+		max-width: 800px;
+		margin: 0 auto;
+		position: relative;
+		border-radius: 3px;
+		min-height: 50px;
+		height: auto !important;
+		z-index: 1050;
+		width: auto !important;
+		webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  		box-shadow: 0 5px 15px rgba(0,0,0,.5);
+		overflow: hidden;
+		-webkit-overflow-scrolling: touch;
+		outline: 0;
+		top: 10%;
+		padding-bottom: 30px;
+
+		& > .navbar {
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+	}
+
+	.dialog-backdrop {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: #000;
+		display: none;
+		z-index: 0;
+
+		&.in {
+			filter: alpha(opacity=50);
+			opacity: .5;
+			display: block;
+			z-index: 9;
+		}
+	}
+
+	.fade {
+		opacity: 0;
+		-webkit-transition: opacity .15s linear;
+		-o-transition: opacity .15s linear;
+		transition: opacity .15s linear;
+	}
+}

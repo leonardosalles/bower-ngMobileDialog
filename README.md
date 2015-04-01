@@ -65,6 +65,3 @@ Options
 | templateUrl | String | "src/app/dialog.html"                                  | If not template     | Template url for load                                                    |
 | resolve     | Object | resolve: {resolveOne: function () { return "example"}} | false               | A object with keys of functions with values that will be passed to dialog controller |
 
-
-###TODO
-- Create bower and npm modules

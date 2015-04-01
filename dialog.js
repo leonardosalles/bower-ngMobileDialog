@@ -2,6 +2,7 @@
 	"use strict";
 
 	angular.module("ngMobileDialog", []).provider("$dialog", function () {
+		this.multiple = false;
 
 		this.$get = function ($timeout, $compile, $rootScope, $controller, $injector, $q, $http, $templateCache) {
 
@@ -152,7 +153,8 @@
 
 						callback(dialog);
 					}
-				}
+				},
+				multiple: this.multiple
 			};
 		};
 	});

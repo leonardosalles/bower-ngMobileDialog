@@ -7,7 +7,10 @@ Install
     
 Use
 ```javascript
-    angular.module("app", ["ngMobileDialog"]);
+    angular.module("app", ["ngMobileDialog"], function ($dialogProvider) {
+    	//Default is false
+    	$dialogProvider.multiple = true;
+    });
 ```
 Markup
 ```html

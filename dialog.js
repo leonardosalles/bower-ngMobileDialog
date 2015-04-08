@@ -109,7 +109,7 @@
 
 			return {
 				create: function (opts, callback) {
-					if (angular.element(".dialog").length) {
+					if (!this.multiple && angular.element(".dialog").length) {
 						return;
 					}
 

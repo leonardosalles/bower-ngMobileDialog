@@ -44,7 +44,7 @@ main-controller.js
 ```
 dialog-controller.js
 ```javascript
-	angular.module("app").controller("DialogController", function (resolveOne) {
+	angular.module("app").controller("DialogController", function ($scope, resolveOne) {
 		$scope.parent = resolveOne;//MainController
 		
 		$scope.close = function () {

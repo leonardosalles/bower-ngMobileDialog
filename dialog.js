@@ -52,14 +52,14 @@
 						$modal.remove();
 						$backdrop.remove();
 						$body.off("keypress");
-						$body.trigger("hidden.gn.dialog");
+						$body.trigger("hidden.ngMobileDialog");
 					});
 
 					$scope.$on("$locationChangeSuccess", function () {
 						$modal.removeClass("active");
 					});
 
-					$modal.on("hidden.gn.dialog", function (event) {
+					$body.on("hidden.ngMobileDialog", function (event) {
 						if (event.target !== $modal[0]) {
 							return;
 						}

@@ -1,6 +1,12 @@
 # ngMobileDialog
 A responsive dialog projected as mobile-first, in mobile use fullscreen like iOS modals, and 768+ screens use modal like [Bootstrap](http://getbootstrap.com)
 
+Demo
+
+    [http://plnkr.co/dz3vZyrgBi6jSjbjmIqi](http://plnkr.co/dz3vZyrgBi6jSjbjmIqi)
+
+
+
 Install
 
     bower install ngMobileDialog --save

@@ -56,7 +56,7 @@ dialog-controller.js
 dialog.html
 ```html
     <h1>this is a dialog from {{parent}}<!-- MainController will be show--></h1>
-    <button ng-click="close()">Close Dialog</button>
+    <button ng-click="close()">Close Dialog</button><br><br>
     <strong>Without parameters can resolve and close directly</strong>
     <button ng-click="resolve()">Close Dialog without parameters</button>
 ```

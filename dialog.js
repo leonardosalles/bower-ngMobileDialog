@@ -59,20 +59,6 @@
 						$modal.removeClass("active");
 					});
 
-					$body.on("hidden.ngMobileDialog", function (event) {
-						if (event.target !== $modal[0]) {
-							return;
-						}
-
-						$scope.$apply(function () {
-							if (self.deferred) {
-								self.deferred.reject();
-							}
-							$scope.$destroy();
-						});
-
-					});
-
 					$timeout(function () {
 						$modal.addClass("active");
 						$backdrop.addClass("in");

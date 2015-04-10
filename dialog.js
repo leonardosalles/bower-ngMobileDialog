@@ -2,9 +2,10 @@
 	"use strict";
 
 	angular.module("ngMobileDialog", []).provider("$dialog", function () {
-		this.multiple = false;
-
-		this.$get = function ($timeout, $compile, $rootScope, $controller, $injector, $q, $http, $templateCache) {
+		var vm = this;
+		vm.multiple = false;
+		vm.currentScopes = {};
+		vm.$get = function ($timeout, $compile, $rootScope, $controller, $injector, $q, $http, $templateCache) {
 
 			function Dialog(opts, modalEl) {
 				this.options = opts;
@@ -17,57 +18,65 @@
 				var $backdrop = angular.element(".dialog-backdrop");
 
 				this._loadResolves().then(function (locals) {
-					var $scope = locals.$scope = locals.$scope ? locals.$scope : $rootScope.$new();
+					try{
+						var $scope = locals.$scope = locals.$scope ? locals.$scope : $rootScope.$new();
+						$scope.dialogId = new Date();
+						vm.currentScopes[$scope.dialogId] = $scope;
 
-					if (self.options.controller) {
-						var ctrl = $controller(self.options.controller, locals);
-						self.modalEl.data("ngControllerController", ctrl);
-					}
+						if (self.options.controller) {
+							var ctrl = $controller(self.options.controller, locals);
+							self.modalEl.data("ngControllerController", ctrl);
+						}
 
-					self.modalEl.addClass("dialog");
+						self.modalEl.addClass("dialog");
 
-					var $modal = $compile(self.modalEl)($scope).find(".dialog").prevObject;
+						var $modal = $compile(self.modalEl)($scope).find(".dialog").prevObject;
 
-					$scope.options = self.options;
+						$scope.options = self.options;
 
-					var backdrop = self.options.backdrop === false ? false : true;
+						var backdrop = self.options.backdrop === false ? false : true;
 
-					if (backdrop) {
-						$backdrop.on("click", function () {
-							$scope.resolve();
+						if (backdrop) {
+							$backdrop.on("click", function () {
+								$scope.resolve();
+							});
+						}
+
+						$scope.resolve = function (result) {
+							delete vm.currentScopes[$scope.dialogId];
+							self.deferred.resolve(result);
+							self.deferred = null;
+							$modal.removeClass("active");
+
+							$timeout(function () {
+								$scope.$destroy();
+								vm.currentDialog = null;
+							}, 100);
+						};
+
+						$scope.$on("$destroy", function () {
+							$modal.remove();
+							$backdrop.remove();
+							$body.off("keypress");
+							$body.trigger("hidden.ngMobileDialog");
 						});
-					}
 
-					$scope.resolve = function (result) {
-						self.deferred.resolve(result);
-						self.deferred = null;
-						$modal.removeClass("active");
+						$scope.$on("$locationChangeSuccess", function () {
+							$modal.removeClass("active");
+						});
 
 						$timeout(function () {
-							$scope.$destroy();
-						}, 100);
-					};
-
-					$scope.$on("$destroy", function () {
-						$modal.remove();
-						$backdrop.remove();
-						$body.off("keypress");
-						$body.trigger("hidden.ngMobileDialog");
-					});
-
-					$scope.$on("$locationChangeSuccess", function () {
-						$modal.removeClass("active");
-					});
-
-					$timeout(function () {
-						$modal.addClass("active");
-						$backdrop.addClass("in");
-						$body.on("keypress", function (e) {
-							if (e.keyCode === 13) {
-								e.preventDefault();
-							}
-						});
-					}, 50);
+							$modal.addClass("active");
+							$backdrop.addClass("in");
+							$body.on("keypress", function (e) {
+								if (e.keyCode === 13) {
+									e.preventDefault();
+								}
+							});
+						}, 50);
+					}catch(ex){
+						console.log(ex);	
+					}
 				});
 
 				this.deferred = $q.defer();
@@ -140,7 +149,17 @@
 						callback(dialog);
 					}
 				},
-				multiple: this.multiple
+				multiple: this.multiple,
+				resolve: function (result){
+					if(vm.currentScopes){
+						for (var key in vm.currentScopes) {
+						   if (vm.currentScopes.hasOwnProperty(key)) {
+							   var obj = vm.currentScopes[key];
+								obj.resolve(result);
+							}
+						}
+					}
+				}
 			};
 		};
 	});

@@ -4,6 +4,7 @@
 	angular.module("ngMobileDialog", []).provider("$dialog", function () {
 		var vm = this;
 		vm.multiple = false;
+		vm.headers = {};
 		vm.currentScopes = {};
 		vm.$get = function ($timeout, $compile, $rootScope, $controller, $injector, $q, $http, $templateCache) {
 
@@ -128,7 +129,9 @@
 						return;
 					}
 
-					$http.get(opts.templateUrl, {})
+					$http.get(opts.templateUrl, {
+						headers: this.headers
+					})
 					.success(function(data) {
 						setElements(data);
 						$templateCache.put(opts.templateUrl, data);
@@ -150,6 +153,7 @@
 					}
 				},
 				multiple: this.multiple,
+				headers: this.headers,
 				resolve: function (result){
 					if(vm.currentScopes){
 						for (var key in vm.currentScopes) {

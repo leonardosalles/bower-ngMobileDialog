@@ -4,7 +4,8 @@
 	z-index: 11;
 	width: 100%;
 	min-height: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
 	background-color: #fff;
 	-webkit-transition: -webkit-transform .35s,opacity 1ms .35s;
 	-moz-transition: -moz-transform .35s,opacity 1ms .35s;
@@ -13,7 +14,6 @@
 	-ms-transform: translate3d(0,100%,0);
 	transform: translate3d(0,100%,0);
 	left: 0;
-	overflow: scroll;
 
 
 	&.active {

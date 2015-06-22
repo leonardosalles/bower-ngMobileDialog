@@ -6,6 +6,10 @@
   ],
   "description": "A responsive dialog projected as mobile-first, in mobile use fullscreen like iOS modals, and 768+ screens use modal like Bootstrap",
   "main": "dialog.js",
+  "ignore": [
+    "LICENSE",
+    "README.md"
+  ],
   "keywords": [
     "mobile",
     "dialog",

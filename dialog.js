@@ -15,30 +15,29 @@
 
 			Dialog.prototype.open = function () {
 				var self = this;
-				var $body = angular.element("body");
-				var $backdrop = angular.element(".dialog-backdrop");
+				var $body = document.body;
+				var $backdrop = document.querySelector(".dialog-backdrop");
 
 				this._loadResolves().then(function (locals) {
-					try{
 						var $scope = locals.$scope = locals.$scope ? locals.$scope : $rootScope.$new();
 						$scope.dialogId = new Date();
 						vm.currentScopes[$scope.dialogId] = $scope;
 
 						if (self.options.controller) {
 							var ctrl = $controller(self.options.controller, locals);
-							self.modalEl.data("ngControllerController", ctrl);
+							self.modalEl.dataset.ngControllerController = self.options.controller;
 						}
 
-						self.modalEl.addClass("dialog");
+						self.modalEl.classList.add("dialog");
 
-						var $modal = $compile(self.modalEl)($scope).find(".dialog").prevObject;
+						var $modal = $compile(self.modalEl)($scope)[0];
 
 						$scope.options = self.options;
 
 						var backdrop = self.options.backdrop === false ? false : true;
 
 						if (backdrop) {
-							$backdrop.on("click", function () {
+							$backdrop.addEventListener("click", function () {
 								$scope.resolve();
 							});
 						}
@@ -47,7 +46,7 @@
 							delete vm.currentScopes[$scope.dialogId];
 							self.deferred.resolve(result);
 							self.deferred = null;
-							$modal.removeClass("active");
+							$modal.classList.remove("active");
 
 							$timeout(function () {
 								$scope.$destroy();
@@ -58,26 +57,23 @@
 						$scope.$on("$destroy", function () {
 							$modal.remove();
 							$backdrop.remove();
-							$body.off("keypress");
-							$body.trigger("hidden.ngMobileDialog");
+							var event = new Event("hidden.ngMobileDialog");
+							$body.dispatchEvent(event);
 						});
 
 						$scope.$on("$locationChangeSuccess", function () {
-							$modal.removeClass("active");
+							$modal.classList.remove("active");
 						});
 
 						$timeout(function () {
-							$modal.addClass("active");
-							$backdrop.addClass("in");
-							$body.on("keypress", function (e) {
+							$modal.classList.add("active");
+							$backdrop.classList.add("in");
+							$body.addEventListener("keypress", function (e) {
 								if (e.keyCode === 13) {
 									e.preventDefault();
 								}
 							});
 						}, 50);
-					}catch(ex){
-						console.log(ex);	
-					}
 				});
 
 				this.deferred = $q.defer();
@@ -105,7 +101,7 @@
 
 			return {
 				create: function (opts, callback) {
-					if (!this.multiple && angular.element(".dialog").length) {
+					if (!this.multiple && document.querySelector(".dialog").length) {
 						return;
 					}
 
@@ -140,12 +136,19 @@
 				  	});
 
 					function setElements (template) {
-						var backdrop = "\n<div class=\"dialog-backdrop fade\"></div>";
+						var backdrop = document.createElement("div");
+						backdrop.classList.add("dialog-backdrop");
+						backdrop.classList.add("fade");
 
-						var modalEl = angular.element("<div>");
-						modalEl.html(template);
-
-						angular.element("body").append(modalEl).append(backdrop);
+					        var body = document.body;
+					            
+					        var modalEl = document.createElement("div");
+					        modalEl.innerHTML = template;
+					            
+					        modalEl.querySelector(".modal-header > button.close").dataset.ngClick = "resolve()";
+            
+						body.appendChild(modalEl);
+						body.appendChild(backdrop);
 
 						var dialog = new Dialog(opts, modalEl);
 

@@ -139,18 +139,21 @@
 						var backdrop = document.createElement("div");
 						backdrop.classList.add("dialog-backdrop");
 						backdrop.classList.add("fade");
-
+					
 					        var body = document.body;
 					            
 					        var modalEl = document.createElement("div");
 					        modalEl.innerHTML = template;
 					            
 					        modalEl.querySelector(".modal-header > button.close").dataset.ngClick = "resolve()";
-            
-						body.appendChild(modalEl);
+					
+					        var first = modalEl.firstChild;
+						body.appendChild(first);
 						body.appendChild(backdrop);
 
-						var dialog = new Dialog(opts, modalEl);
+						var dialog = new Dialog(opts, first);
+
+            
 
 						callback(dialog);
 					}

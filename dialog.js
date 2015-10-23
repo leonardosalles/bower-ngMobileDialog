@@ -68,11 +68,15 @@
 						$timeout(function () {
 							$modal.classList.add("active");
 							$backdrop.classList.add("in");
-							$body.addEventListener("keypress", function (e) {
-								if (e.keyCode === 13) {
-									e.preventDefault();
-								}
-							});
+							if (self.options.escKey) {
+  								window.onkeydown = function(e) {
+					                  		var keyCode = e.keyCode || e.which;
+					                  		if (keyCode == 27) {
+					                      			e.preventDefault();
+					                      			$scope.resolve();
+					                  		}
+								};
+							}
 						}, 50);
 				});
 

@@ -26,27 +26,52 @@ Javascript
 
 main-controller.js
 ```javascript
-    angular.module("app", []).controller("MainController", function ($scope, $dialog) {
-		$scope.openDialog = function() {
-			var resolverOne = function () {
-				return "MainController"
-			};
-			$dialog.create({templateUrl: "dialog.html", controller: "DialogController", resolve: {resolveOne: resolverOne}}, function (dialog) {
-				dialog.open().then(function (someValue) {
-					//Will show: This can be whatever from dialog like an object or string
-					console.log(someValue);
-				});
-			});
-			
-			//Or
-			$dialog.create({template: "<h1>this is a dialog from {{parent}}<!-- MainController will be show--></h1>", controller: "DialogController", resolve: {resolveOne: resolverOne}}, function (dialog) {
-				dialog.open().then(function (someValue) {
-					//Will show: This can be whatever from dialog like an object or string
-					console.log(someValue);
-				});
-			});
-		};
-    });
+    
+angular.module("app").controller("MainController", function ($scope, $dialog) {
+    $scope.openDialog = function() {
+        var resolverOne = function () {
+            return "MainController"
+        };
+        $dialog.create({templateUrl: "dialog.html", controller: "DialogController", resolve: {resolveOne: resolverOne}}, function (dialog) {
+            dialog.open().then(function (someValue) {
+                //Will show: This can be whatever from dialog like an object or string
+                alert(someValue);
+            });
+        });
+    };
+    
+     $scope.openDialogTwo = function() {
+        var resolverOne = function () {
+            return "MainController"
+        };
+        
+        var template = '<div role="dialog" tabindex="-1" class="dialog" aria-labelledby="dialog-title">'+
+                        '  <div role="document" class="modal-dialog">'+
+                        '     <div class="modal-content">'+
+                        '<div class="modal-header">'+
+                        '<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                        '  <h1 id="dialog-title">this is a dialog from {{parent}}<!-- MainController will be show--></h1>'+
+                        '</div>'+
+                        '<div class="modal-body">'+
+                        '  Modal Body'+
+                        '</div>'+
+                        '<div class="modal-footer">'+
+                        '<button ng-click="close()">Close Dialog</button><br><br>'+
+                        '<strong>Without parameters can resolve and close directly</strong>'+
+                        '<button ng-click="resolve()">Close Dialog without parameters</button>'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>'+
+                      '</div>';
+        
+        $dialog.create({template: template, controller: "DialogController", resolve: {resolveOne: resolverOne}}, function (dialog) {
+            dialog.open().then(function (someValue) {
+                //Will show: This can be whatever from dialog like an object or string
+                alert(someValue);
+            });
+        });
+    };
+});
 ```
 dialog-controller.js
 ```javascript
@@ -61,10 +86,26 @@ dialog-controller.js
 
 dialog.html
 ```html
-    <h1>this is a dialog from {{parent}}<!-- MainController will be show--></h1>
-    <button ng-click="close()">Close Dialog</button><br><br>
-    <strong>Without parameters can resolve and close directly</strong>
-    <button ng-click="resolve()">Close Dialog without parameters</button>
+<div role="dialog" tabindex="-1" class="dialog" aria-labelledby="dialog-title">
+    <div role="document" class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h1 id="dialog-title">this is a dialog from {{parent}}<!-- MainController will be show--></h1>
+          </div>
+
+          <div class="modal-body">
+            Modal Body
+          </div>
+
+          <div class="modal-footer">
+            <button ng-click="close()">Close Dialog</button><br><br>
+            <strong>Without parameters can resolve and close directly</strong>
+            <button ng-click="resolve()">Close Dialog without parameters</button>
+          </div>
+        </div>
+    </div>
+</div>
 ```
 Options
 

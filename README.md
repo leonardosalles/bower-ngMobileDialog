@@ -114,4 +114,5 @@ Options
 | template    | String | "template string with div, h1, whatever from html"                                      | If not template url | Template string                                                          |
 | templateUrl | String | "src/app/dialog.html"                                  | If not template     | Template url for load                                                    |
 | resolve     | Object | resolve: {resolveOne: function () { return "example"}} | false               | A object with keys of functions with values that will be passed to dialog controller |
+| escKey     | Boolean | true(Default: false) | false               | A boolean that define if modal will close with ESC press |
 

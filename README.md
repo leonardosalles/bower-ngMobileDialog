@@ -9,7 +9,7 @@ Demo
 
 Install
 
-    bower install ngMobileDialog --save
+    bower install ngMobileDialog
     
 Use
 ```javascript

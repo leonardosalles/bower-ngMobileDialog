@@ -11,6 +11,15 @@ Install
 
     bower install ngMobileDialog
     
+Include minified version
+```html
+	<script src="bower_components/ngMobileDialog/dialog.js"></script>
+```
+
+To debug include max version
+```html
+	<script src="bower_components/ngMobileDialog/dialog.max.js"></script>
+``` 
 Use
 ```javascript
     angular.module("app", ["ngMobileDialog"], function ($dialogProvider) {

@@ -1,12 +1,12 @@
 (function () {
-	"use strict";
+	'use strict';
 
-	angular.module("ngMobileDialog", []).provider("$dialog", function () {
+	angular.module('ngMobileDialog', []).provider('$dialog', function () {
 		var vm = this;
 		vm.multiple = false;
 		vm.headers = {};
 		vm.currentScopes = {};
-		vm.$get = function ($timeout, $compile, $rootScope, $controller, $injector, $q, $http, $templateCache) {
+		vm.$get = ['$timeout', '$compile', '$rootScope', '$controller', '$injector', '$q', '$http', '$templateCache', function ($timeout, $compile, $rootScope, $controller, $injector, $q, $http, $templateCache) {
 
 			function Dialog(opts, modalEl) {
 				this.options = opts;
@@ -16,7 +16,7 @@
 			Dialog.prototype.open = function () {
 				var self = this;
 				var $body = document.body;
-				var $backdrop = document.querySelector(".dialog-backdrop");
+				var $backdrop = document.querySelector('.dialog-backdrop');
 
 				this._loadResolves().then(function (locals) {
 						var $scope = locals.$scope = locals.$scope ? locals.$scope : $rootScope.$new();
@@ -28,7 +28,7 @@
 							self.modalEl.dataset.ngControllerController = self.options.controller;
 						}
 
-						self.modalEl.classList.add("dialog");
+						self.modalEl.classList.add('dialog');
 
 						var $modal = $compile(self.modalEl)($scope)[0];
 
@@ -37,7 +37,7 @@
 						var backdrop = self.options.backdrop === false ? false : true;
 
 						if (backdrop) {
-							$backdrop.addEventListener("click", function () {
+							$backdrop.addEventListener('click', function () {
 								$scope.resolve();
 							});
 						}
@@ -46,7 +46,7 @@
 							delete vm.currentScopes[$scope.dialogId];
 							self.deferred.resolve(result);
 							self.deferred = null;
-							$modal.classList.remove("active");
+							$modal.classList.remove('active');
 
 							$timeout(function () {
 								$scope.$destroy();
@@ -54,20 +54,20 @@
 							}, 100);
 						};
 
-						$scope.$on("$destroy", function () {
+						$scope.$on('$destroy', function () {
 							$modal.remove();
 							$backdrop.remove();
-							var event = new Event("hidden.ngMobileDialog");
+							var event = new Event('hidden.ngMobileDialog');
 							$body.dispatchEvent(event);
 						});
 
-						$scope.$on("$locationChangeSuccess", function () {
-							$modal.classList.remove("active");
+						$scope.$on('$locationChangeSuccess', function () {
+							$modal.classList.remove('active');
 						});
 
 						$timeout(function () {
-							$modal.classList.add("active");
-							$backdrop.classList.add("in");
+							$modal.classList.add('active');
+							$backdrop.classList.add('in');
 							if (self.options.escKey) {
   								window.onkeydown = function(e) {
 					                  		var keyCode = e.keyCode || e.which;
@@ -105,12 +105,12 @@
 
 			return {
 				create: function (opts, callback) {
-					if (!this.multiple && document.querySelector(".dialog").length) {
+					if (!this.multiple && document.querySelector('.dialog').length) {
 						return;
 					}
 
 					if (!opts.template && !opts.templateUrl) {
-						throw new Error("Template or template url must be informed!");
+						throw new Error('Template or template url must be informed!');
 					}
 
 					var templateCache = null;
@@ -123,7 +123,7 @@
 							return;
 						}
 					}
-					
+
 					if (opts.template && !opts.templateUrl) {
 						setElements(opts.template);
 						return;
@@ -135,29 +135,28 @@
 					.success(function(data) {
 						setElements(data);
 						$templateCache.put(opts.templateUrl, data);
-				  	}).error(function() {
-						throw new Error("Can not load dialog template from url: " + opts.templateUrl);
+				  	})
+                    .error(function() {
+						throw new Error('Can not load dialog template from url: ' + opts.templateUrl);
 				  	});
 
 					function setElements (template) {
-						var backdrop = document.createElement("div");
-						backdrop.classList.add("dialog-backdrop");
-						backdrop.classList.add("fade");
-					
-					        var body = document.body;
-					            
-					        var modalEl = document.createElement("div");
-					        modalEl.innerHTML = template;
-					            
-					        modalEl.querySelector(".modal-header > button.close").dataset.ngClick = "resolve()";
-					
-					        var first = modalEl.firstChild;
+						var backdrop = document.createElement('div');
+						backdrop.classList.add('dialog-backdrop');
+						backdrop.classList.add('fade');
+
+                        var body = document.body;
+
+                        var modalEl = document.createElement('div');
+                        modalEl.innerHTML = template;
+
+                        modalEl.querySelector('.modal-header > button.close').dataset.ngClick = 'resolve()';
+
+                        var first = modalEl.firstChild;
 						body.appendChild(first);
 						body.appendChild(backdrop);
 
 						var dialog = new Dialog(opts, first);
-
-            
 
 						callback(dialog);
 					}
@@ -175,6 +174,6 @@
 					}
 				}
 			};
-		};
+		}];
 	});
 })();

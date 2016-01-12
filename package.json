@@ -1,0 +1,28 @@
+{
+  "name": "ng-mobile-dialog",
+  "version": "1.0.1",
+  "description": "A simple modal directive that uses promises, resolves and separated html templates",
+  "main": "dialog.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardosalles/ngMobileDialog.git"
+  },
+  "keywords": [
+    "ngMobileDialog",
+    "angular",
+    "dialog",
+    "ngDialog",
+    "mobiledialog",
+    "mobileangular",
+    "angularmobile"
+  ],
+  "author": "Leonardo Salles",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leonardosalles/ngMobileDialog/issues"
+  },
+  "homepage": "https://github.com/leonardosalles/ngMobileDialog#readme"
+}

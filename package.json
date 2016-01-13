@@ -1,7 +1,7 @@
 {
   "name": "ng-mobile-dialog",
   "version": "1.0.1",
-  "description": "A simple modal directive that uses promises, resolves and separated html templates",
+  "description": "A simple modal directive for Angular.js that uses promises, resolves and separated html templates",
   "main": "dialog.js",
   "scripts": {
     "test": "npm test"

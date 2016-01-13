@@ -9,7 +9,11 @@ Demo
 
 Install
 
-    npm install ng-mobile-dialog OR bower install ngMobileDialog
+    npm install ng-mobile-dialog
+    
+Or
+
+    bower install ngMobileDialog
     
 Include minified version
 ```html

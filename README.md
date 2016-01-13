@@ -3,7 +3,7 @@ A responsive dialog projected as mobile-first, in mobile use fullscreen like iOS
 
 Demo
 
-   [http://plnkr.co/dz3vZyrgBi6jSjbjmIqi](http://run.plnkr.co/plunks/dz3vZyrgBi6jSjbjmIqi/)
+   [http://plnkr.co/dz3vZyrgBi6jSjbjmIqi](https://plnkr.co/dz3vZyrgBi6jSjbjmIqi/)
 
 
 

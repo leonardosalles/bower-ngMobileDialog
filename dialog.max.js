@@ -58,7 +58,7 @@
                         $modal.remove();
                         $backdrop.remove();
                         var event = new Event('hidden.ngMobileDialog');
-                        $body.dispatchEvent(event);
+                        document.dispatchEvent(event);
                     });
 
                     $scope.$on('$locationChangeSuccess', function() {

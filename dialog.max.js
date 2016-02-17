@@ -26,6 +26,10 @@
                     if (self.options.controller) {
                         var ctrl = $controller(self.options.controller, locals);
                         self.modalEl.dataset.ngControllerController = self.options.controller;
+
+                        if (self.options.controllerAs) {
+                            $scope[self.options.controllerAs] = ctrl
+                        }
                     }
 
                     self.modalEl.classList.add('dialog');

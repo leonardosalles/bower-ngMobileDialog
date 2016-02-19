@@ -28,7 +28,7 @@
                         self.modalEl.dataset.ngControllerController = self.options.controller;
 
                         if (self.options.controllerAs) {
-                            $scope[self.options.controllerAs] = ctrl
+                            $scope[self.options.controllerAs] = ctrl;
                         }
                     }
 

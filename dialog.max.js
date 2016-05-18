@@ -109,7 +109,7 @@
 
             return {
                 create: function(opts, callback) {
-                    if (!this.multiple && document.querySelector('.dialog').length) {
+                    if (!this.multiple && document.querySelector('.dialog') && document.querySelector('.dialog').length) {
                         return;
                     }
 
@@ -154,7 +154,11 @@
                         var modalEl = document.createElement('div');
                         modalEl.innerHTML = template;
 
-                        modalEl.querySelector('.modal-header > button.close').dataset.ngClick = 'resolve()';
+                        if (modalEl.querySelector('.modal-header > button.close') &&
+                            modalEl.querySelector('.modal-header > button.close').dataset) {
+
+                            modalEl.querySelector('.modal-header > button.close').dataset.ngClick = 'resolve()';
+                        }
 
                         var first = modalEl.firstChild;
                         body.appendChild(first);

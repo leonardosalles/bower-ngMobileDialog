@@ -124,10 +124,11 @@ Options
 
 | Name      | Type   | Example                                                | Required            | Description                                                              |
 |-------------|--------|--------------------------------------------------------|---------------------|--------------------------------------------------------------------------|
-| controller     | String | "DialogController" | true               | The name of denifed controller for dialog |
-| controllerAs     | String | "vm" | false               | A abbreviation to controller name such as vm, it allow you to use vm.property at your view |
+| controller     | String | "DialogController" | true               | The name of defined controller for dialog |
+| controllerAs     | String | "vm" | false               | A abbreviation to controller name such as vm, it allows you to use vm.property at your view |
+| scope     | Object | {parameter: 'myParameter'} | false               | A scope to be used in template |
 | template    | String | "defined template string(from [Require.js Text](https://github.com/requirejs/text) for example)"                                      | If not template url | Template string                                                          |
 | templateUrl | String | "src/app/dialog.html"                                  | If not template     | Template url for load                                                    |
 | resolve     | Object | resolve: {resolveOne: function () { return "example"}} | false               | A object with keys of functions with values that will be passed to dialog controller |
-| escKey     | Boolean | true(Default: false) | false               | A boolean that define if modal will close with ESC press |
+| escKey     | Boolean | true(Default: false) | false               | A boolean that defines if modal will close with ESC press |
 

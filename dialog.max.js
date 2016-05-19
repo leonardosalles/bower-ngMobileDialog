@@ -1,7 +1,10 @@
 (function() {
     'use strict';
 
-    angular.module('ngMobileDialog', []).provider('$dialog', function() {
+	angular.module('ngMobileDialog.controllers', [])
+		.controller('ngMobileDialogController', function() {})
+
+    angular.module('ngMobileDialog', ['ngMobileDialog.controllers']).provider('$dialog', function() {
         var vm = this;
         vm.multiple = false;
         vm.headers = {};
@@ -30,6 +33,12 @@
                         if (self.options.controllerAs) {
                             $scope[self.options.controllerAs] = ctrl;
                         }
+                    }
+
+					if (!self.options.controller && self.options.scope) {
+                        var ctrl = $controller('ngMobileDialogController', locals);
+                        self.modalEl.dataset.ngControllerController = 'ngMobileDialogController';
+						$scope = angular.extend(locals.$scope, self.options.scope);
                     }
 
                     self.modalEl.classList.add('dialog');
